@@ -17,12 +17,15 @@ struct Turtle find_pos(struct Turtle old_pos)
 void draw_tree(SDL_Renderer *renderer)
 {
   init_stack(generations);
+  Uint8 r = 150;
+  Uint8 g = 75;
+  Uint8 b = 0;
   struct Turtle start_pos = (struct Turtle)
   {
     .coord.x = WINDOW_WIDTH/2,
     .coord.y = WINDOW_HEIGHT,
     .angle = 0,
-    .distance = 50
+    .distance = 10
   };
   struct Turtle end_pos;
   struct Turtle old_pos;
@@ -37,15 +40,14 @@ void draw_tree(SDL_Renderer *renderer)
     {
 
       case '0':
+        g = 255;
         end_pos = find_pos(start_pos);
-        end_pos.distance = start_pos.distance * 0.90;
-        old_pos = start_pos;
         draw = 1;
         break;
 
       case '1':
+        g = 0;
         end_pos = find_pos(start_pos);
-        end_pos.distance = start_pos.distance * 0.90;
         old_pos = end_pos;
         draw = 1;
         break;
@@ -66,8 +68,7 @@ void draw_tree(SDL_Renderer *renderer)
         break;
 
     }
-  SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-  /*SDL_Log("%c: %d,%d->%d,%d", ch, start_pos.coord.x, start_pos.coord.y, end_pos.coord.x, end_pos.coord.y);*/
+  SDL_SetRenderDrawColor(renderer, r, g, b, 255);
   if (draw)
   {
     SDL_RenderDrawLine(renderer, start_pos.coord.x, start_pos.coord.y, end_pos.coord.x, end_pos.coord.y);
