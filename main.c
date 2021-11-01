@@ -61,6 +61,7 @@ int main(int argc, char **argv)
   };
 
   create_instrustions(axiom, rule, generations);
+  SDL_Log("Number of trunk segements: %d\n", (int) pow(2,generations - 1) + 1);
 
   window = SDL_CreateWindow(
     "Tree",

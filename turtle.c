@@ -25,7 +25,7 @@ void draw_tree(SDL_Renderer *renderer)
     .coord.x = WINDOW_WIDTH/2,
     .coord.y = WINDOW_HEIGHT,
     .angle = 0,
-    .distance = 10
+    .distance = (WINDOW_HEIGHT/2) / (int) pow(2,generations - 1)
   };
   struct Turtle end_pos;
   struct Turtle old_pos;
