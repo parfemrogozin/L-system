@@ -9,8 +9,10 @@ extern int generations;
 struct Turtle find_pos(struct Turtle old_pos)
 {
   struct Turtle new_pos;
-  new_pos.coord.x = old_pos.coord.x + sin(old_pos.angle) * old_pos.distance;
-  new_pos.coord.y = old_pos.coord.y - cos(old_pos.angle) * old_pos.distance;
+  double angle_rad = (old_pos.angle / 180.0) * ((double) M_PI);
+  new_pos.distance = old_pos.distance;
+  new_pos.coord.x = old_pos.coord.x + sin(angle_rad) * old_pos.distance;
+  new_pos.coord.y = old_pos.coord.y - cos(angle_rad) * old_pos.distance;
   return new_pos;
 }
 
@@ -27,6 +29,10 @@ void draw_tree(SDL_Renderer *renderer)
     .angle = 0,
     .distance = (WINDOW_HEIGHT/2) / (int) pow(2,generations - 1)
   };
+  if ( start_pos.distance < 2)
+  {
+    start_pos.distance = 2;
+  }
   struct Turtle end_pos;
   struct Turtle old_pos;
   int ch = 0;
@@ -53,14 +59,14 @@ void draw_tree(SDL_Renderer *renderer)
         break;
 
       case '[':
-        start_pos.angle = start_pos.angle - 0.785398163;
+        start_pos.angle = start_pos.angle - 45; /*- 0.785398163;*/
         push(start_pos);
         draw = 0;
         break;
 
       case ']':
         start_pos = pop();
-        start_pos.angle = start_pos.angle + 1.57079633;
+        start_pos.angle = start_pos.angle + 90; /*+ 1.57079633;*/
         draw = 0;
         break;
 
